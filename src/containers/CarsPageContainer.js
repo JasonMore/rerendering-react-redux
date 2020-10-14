@@ -38,6 +38,7 @@ const CarsPageContainer = ({
         <div className="container-fluid row">
           {carState.cars.map((car) => (
             <Car
+              key={car.id}
               car={car}
               carSelected={selectCar}
               canToggle={optionState.canToggle}
