@@ -21,13 +21,10 @@ const CarsPageContainer = ({
     }, 500);
   }, [addAllCars]);
 
-  const carsSelected = carState.cars.filter((car) => car.selected).length;
-
   return (
     <div>
       <Options
         addCar={addCar}
-        carsSelected={carsSelected}
         canToggle={optionState.canToggle}
         canToggleSelected={canToggleSelected}
       />

@@ -1,6 +1,6 @@
 import React from "react";
 
-const Options = ({ canToggle, canToggleSelected, addCar, carsSelected }) => {
+const Options = ({ canToggle, canToggleSelected, addCar }) => {
   return (
     <div className="m-2 p-2">
       <h2>Options</h2>
@@ -21,7 +21,6 @@ const Options = ({ canToggle, canToggleSelected, addCar, carsSelected }) => {
           Add Audi
         </button>
       </p>
-      <p>Cars Selected: {carsSelected}</p>
     </div>
   );
 };
