@@ -62,4 +62,6 @@ const mapDispatchToProps = {
   addCar,
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(CarsPageContainer);
+export default React.memo(
+  connect(mapStateToProps, mapDispatchToProps)(CarsPageContainer)
+);

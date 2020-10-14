@@ -13,7 +13,7 @@ if (
 
   whyDidYouRender(React, {
     include: [/.*/],
-    exclude: [],
+    exclude: [/^Connect/],
     collapseGroups: true,
     notifier: whyDidYouRenderNotifier.default,
   });
