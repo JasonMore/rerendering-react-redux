@@ -9,7 +9,7 @@ const Options = ({ canToggle, canToggleSelected, addCar }) => {
           className={`btn ${canToggle ? "btn-primary" : "btn-secondary"}`}
           onClick={() => canToggleSelected(!canToggle)}
         >
-          {canToggle ? "☑ Selection Enabled︎" : "☐ Selection Disabled"}
+          {canToggle ? "☑ Selection Enabled" : "☐ Selection Disabled"}
         </button>
         <button
           className="btn btn-light ml-2"
