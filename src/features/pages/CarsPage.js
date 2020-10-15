@@ -23,11 +23,7 @@ const CarsPage = ({
 
   return (
     <div>
-      <Options
-        addCar={addCar}
-        canToggle={optionState.canToggle}
-        canToggleSelected={canToggleSelected}
-      />
+      <Options />
 
       <div className="m-2 p-2">
         <h2>Cars</h2>

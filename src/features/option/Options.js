@@ -1,4 +1,7 @@
 import React from "react";
+import { connect } from "react-redux";
+import { addCar } from "../../store/actions/car";
+import { canToggleSelected } from "../../store/actions/options";
 
 const Options = ({ canToggle, canToggleSelected, addCar }) => {
   return (
@@ -25,4 +28,13 @@ const Options = ({ canToggle, canToggleSelected, addCar }) => {
   );
 };
 
-export default Options;
+const mapStateToProps = (state) => ({
+  canToggle: state.option.canToggle,
+});
+
+const mapDispatchToProps = {
+  canToggleSelected,
+  addCar,
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(Options);
