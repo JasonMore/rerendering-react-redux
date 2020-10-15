@@ -1,5 +1,7 @@
+import keyBy from "../keyBy";
+
 const initialState = {
-  cars: [],
+  cars: {},
 };
 
 const car = (state = initialState, action) => {
@@ -7,24 +9,26 @@ const car = (state = initialState, action) => {
     case "CAR_ADD_ALL":
       return {
         ...state,
-        cars: action.cars,
+        cars: keyBy(action.cars, "id"),
       };
     case "CAR_ADD":
       return {
         ...state,
-        cars: [action.car, ...state.cars],
+        cars: {
+          ...state.cars,
+          [action.car.id]: action.car,
+        },
       };
     case "CAR_SELECTED":
       return {
         ...state,
-        cars: state.cars.map((car) => {
-          if (car.id !== action.id) return car;
-
-          return {
-            ...car,
+        cars: {
+          ...state.cars,
+          [action.id]: {
+            ...state.cars[action.id],
             selected: action.selected,
-          };
-        }),
+          },
+        },
       };
     default:
       return state;

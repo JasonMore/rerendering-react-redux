@@ -1,4 +1,6 @@
 import React from "react";
+import { connect } from "react-redux";
+import { selectCar } from "../../store/actions/car";
 
 const Car = ({ car, canToggle, selectCar }) => {
   const onCarClicked = () => {
@@ -33,4 +35,13 @@ const Car = ({ car, canToggle, selectCar }) => {
   );
 };
 
-export default Car;
+const mapStateToProps = (state, props) => ({
+  car: state.car.cars[props.carId],
+  canToggle: state.option.canToggle,
+});
+
+const mapDispatchToProps = {
+  selectCar,
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(Car);
