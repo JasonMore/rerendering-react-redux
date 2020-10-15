@@ -1,12 +1,12 @@
 import React, { useEffect } from "react";
 import { connect } from "react-redux";
-import { carData } from "../_fixtures/mockCarData";
-import Car from "../components/Car";
-import { canToggleSelected } from "../store/actions/options";
-import Options from "../components/Options";
-import { addAllCars, addCar, selectCar } from "../store/actions/car";
+import { carData } from "../../_fixtures/mockCarData";
+import Car from "./Car";
+import { canToggleSelected } from "../../store/actions/options";
+import Options from "../option/Options";
+import { addAllCars, addCar, selectCar } from "../../store/actions/car";
 
-const CarsPageContainer = ({
+const CarsPage = ({
   carState,
   optionState,
   addAllCars,
@@ -59,4 +59,4 @@ const mapDispatchToProps = {
   addCar,
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(CarsPageContainer);
+export default connect(mapStateToProps, mapDispatchToProps)(CarsPage);

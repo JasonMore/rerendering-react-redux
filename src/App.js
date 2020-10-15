@@ -1,11 +1,11 @@
 import React from "react";
-import CarsContainer from "./containers/CarsPageContainer";
+import CarsPage from "./features/car/CarsPage";
 
 function App() {
   return (
     <div className="container-fluid">
       <h1>Example React Redux unnecessary re-rendering demo</h1>
-      <CarsContainer />
+      <CarsPage />
     </div>
   );
 }
