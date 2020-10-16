@@ -11,7 +11,7 @@ if (isDev) {
 
   whyDidYouRender(React, {
     include: [/.*/],
-    exclude: [/^Connect/],
+    exclude: [],
     collapseGroups: true,
     notifier: whyDidYouRenderNotifier.default,
   });
