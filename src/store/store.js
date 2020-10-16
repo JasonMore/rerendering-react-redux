@@ -1,10 +1,16 @@
 import { configureStore, getDefaultMiddleware } from "@reduxjs/toolkit";
 import car from "./reducers/carReducer";
 import option from "./reducers/optionReducer";
-import { renderCount } from "./middleware/renderCount";
+import { isDev } from "../isDev";
+
+const middleware = getDefaultMiddleware();
+
+if (isDev) {
+  middleware.push(require("./middleware/renderCount").renderCount);
+}
 
 export default configureStore({
-  middleware: [...getDefaultMiddleware(), renderCount],
+  middleware,
   reducer: {
     car,
     option,
