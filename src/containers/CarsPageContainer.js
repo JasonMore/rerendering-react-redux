@@ -37,7 +37,7 @@ const CarsPageContainer = ({
             <Car
               key={car.id}
               car={car}
-              carSelected={selectCar}
+              selectCar={selectCar}
               canToggle={optionState.canToggle}
             />
           ))}

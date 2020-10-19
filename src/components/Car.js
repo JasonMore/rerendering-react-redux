@@ -1,9 +1,9 @@
 import React from "react";
 
-const Car = ({ car, canToggle, carSelected }) => {
+const Car = ({ car, canToggle, selectCar }) => {
   const onCarClicked = () => {
     if (!canToggle) return;
-    carSelected(car.id, !car.selected);
+    selectCar(car.id, !car.selected);
   };
 
   return (
