@@ -1,5 +1,5 @@
 import React from "react";
-import CarsPage from "./features/car/CarsPage";
+import CarsPage from "./features/pages/CarsPage";
 
 function App() {
   return (

@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 import { connect } from "react-redux";
 import { carData } from "../../_fixtures/mockCarData";
-import Car from "./Car";
+import Car from "../car/Car";
 import { canToggleSelected } from "../../store/actions/options";
 import Options from "../option/Options";
 import { addAllCars, addCar, selectCar } from "../../store/actions/car";
