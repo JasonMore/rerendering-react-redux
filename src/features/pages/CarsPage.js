@@ -3,9 +3,9 @@ import { connect } from "react-redux";
 import { carData } from "../../_fixtures/mockCarData";
 import Car from "../car/Car";
 import Options from "../option/Options";
-import { addAllCars, selectCar } from "../../store/actions/car";
+import { addAllCars } from "../../store/actions/car";
 
-const CarsPage = ({ carState, optionState, addAllCars, selectCar }) => {
+const CarsPage = ({ cars, addAllCars }) => {
   useEffect(() => {
     // simulate ajax load
     setTimeout(() => {
@@ -21,13 +21,8 @@ const CarsPage = ({ carState, optionState, addAllCars, selectCar }) => {
         <h2>Cars</h2>
 
         <div className="container-fluid row">
-          {carState.cars.map((car) => (
-            <Car
-              key={car.id}
-              car={car}
-              selectCar={selectCar}
-              canToggle={optionState.canToggle}
-            />
+          {cars.map((car) => (
+            <Car key={car.id} carId={car.id} />
           ))}
         </div>
       </div>
@@ -36,13 +31,11 @@ const CarsPage = ({ carState, optionState, addAllCars, selectCar }) => {
 };
 
 const mapStateToProps = (state) => ({
-  carState: state.car,
-  optionState: state.option,
+  cars: state.car.cars,
 });
 
 const mapDispatchToProps = {
   addAllCars,
-  selectCar,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(CarsPage);
