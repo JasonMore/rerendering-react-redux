@@ -2,18 +2,10 @@ import React, { useEffect } from "react";
 import { connect } from "react-redux";
 import { carData } from "../../_fixtures/mockCarData";
 import Car from "../car/Car";
-import { canToggleSelected } from "../../store/actions/options";
 import Options from "../option/Options";
-import { addAllCars, addCar, selectCar } from "../../store/actions/car";
+import { addAllCars, selectCar } from "../../store/actions/car";
 
-const CarsPage = ({
-  carState,
-  optionState,
-  addAllCars,
-  canToggleSelected,
-  selectCar,
-  addCar,
-}) => {
+const CarsPage = ({ carState, optionState, addAllCars, selectCar }) => {
   useEffect(() => {
     // simulate ajax load
     setTimeout(() => {
@@ -50,9 +42,7 @@ const mapStateToProps = (state) => ({
 
 const mapDispatchToProps = {
   addAllCars,
-  canToggleSelected,
   selectCar,
-  addCar,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(CarsPage);
