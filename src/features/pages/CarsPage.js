@@ -21,7 +21,7 @@ const CarsPage = ({ cars, addAllCars }) => {
         <h2>Cars</h2>
 
         <div className="container-fluid row">
-          {cars.map((car) => (
+          {Object.values(cars).map((car) => (
             <Car key={car.id} carId={car.id} />
           ))}
         </div>
