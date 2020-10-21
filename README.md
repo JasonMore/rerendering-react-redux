@@ -14,6 +14,8 @@ Over the years redux became one of the most popular options for managing global 
 - [Step 3: Connecting `<Options>` to state](#step-3-connecting-options-to-state)
 - [Step 4: Connecting `<Car>` to state](#step-4-connecting-car-to-state)
 - [Step 5: Remove `connect` HOC](#step-5-remove-connect-hoc)
+- [Step 6: Selectors](#step-6-selectors)
+- [Step 6.1: Refactor store files](#step-61-refactor-store-files)
 - [Summary](#summary)
 
 ## Classic structure
@@ -376,6 +378,42 @@ load:
 clicking "Selected" on a car:
 
 <img src="https://user-images.githubusercontent.com/383719/96768849-f111ba80-13a3-11eb-9d9d-eb4ca5cd82eb.png" alt="" width="300"/>
+
+## Step 6: Selectors
+
+[View branch source](https://github.com/JasonMore/rerendering-react-redux/tree/step6-selectors/src)
+
+Using selector functions for getting values out of state greatly improves the mental work of getting values out of state, allows easier refactoring of components, and is [a recommended best practice by the redux team](https://redux.js.org/style-guide/style-guide#use-selector-functions-to-read-from-store-state).
+
+![image](https://user-images.githubusercontent.com/383719/96774900-5a95c700-13ac-11eb-9410-744b7435d0e9.png)
+
+## Step 6.1: Refactor store files
+
+Keeping the `store` folders aligned to features, just like the components folders aligned to features colocates relevant files together.
+
+```text
+src
+├── App.js
+├── features
+│   ├── car
+│   │   └── Car.js
+│   ├── option
+│   │   └── Options.js
+│   └── pages
+│       └── CarsPage.js
+├── index.js
+└── store
+    ├── car
+    │   ├── carActions.js
+    │   ├── carReducer.js
+    │   └── carSelectors.js
+    ├── middleware
+    ├── option
+    │   ├── optionReducer.js
+    │   ├── optionSelectors.js
+    │   └── optionsActions.js
+    └── store.js
+```
 
 ## Summary
 
