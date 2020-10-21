@@ -7,7 +7,7 @@ Over the years redux became one of the most popular options for managing global 
 ## Table of Contents
 
 - [Classic structure](#classic-structure)
-- [Getting state](#getting-state)
+- [Best Practices](#best-practices)
 - [Understand how immutable objects impact performance](#understand-how-immutable-objects-impact-performance)
 - [Step 1: Original Implementation](#step-1-original-implementation)
 - [Step 2: Refactor File organization](#step-2-refactor-file-organization)
@@ -26,7 +26,10 @@ Over the years redux became one of the most popular options for managing global 
 
 This example project will show step by step the performance and complexity downside to the classic redux structure, and how to migrate a project to use the recommended pattern according to the [Redux Essentials Tutorial](https://redux.js.org/tutorials/essentials/part-2-app-structure), which the redux team considers the most up to date documentation. They also have [a best practices style guide](https://redux.js.org/style-guide/style-guide). Combined, here are some of primary suggestions:
 
-## Getting state
+## Best Practices
+
+<!-- omit in toc -->
+### Getting State
 
 _Don’t_: Create a container component whose only job it is to pass state to another component without doing any rendering or logic. This leads to unnecessary coupling and complexity, especially at scale.
 
