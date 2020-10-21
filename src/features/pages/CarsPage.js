@@ -1,17 +1,20 @@
 import React, { useEffect } from "react";
-import { connect } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { carData } from "../../_fixtures/mockCarData";
 import Car from "../car/Car";
 import Options from "../option/Options";
 import { addAllCars } from "../../store/actions/car";
 
-const CarsPage = ({ cars, addAllCars }) => {
+const CarsPage = () => {
+  const dispatch = useDispatch();
+  const cars = useSelector((state) => state.car.cars);
+
   useEffect(() => {
     // simulate ajax load
     setTimeout(() => {
-      addAllCars(carData);
+      dispatch(addAllCars(carData));
     }, 500);
-  }, [addAllCars]);
+  }, [dispatch]);
 
   return (
     <div>
@@ -30,12 +33,4 @@ const CarsPage = ({ cars, addAllCars }) => {
   );
 };
 
-const mapStateToProps = (state) => ({
-  cars: state.car.cars,
-});
-
-const mapDispatchToProps = {
-  addAllCars,
-};
-
-export default connect(mapStateToProps, mapDispatchToProps)(CarsPage);
+export default CarsPage;
