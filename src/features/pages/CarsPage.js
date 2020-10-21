@@ -3,11 +3,12 @@ import { useDispatch, useSelector } from "react-redux";
 import { carData } from "../../_fixtures/mockCarData";
 import Car from "../car/Car";
 import Options from "../option/Options";
-import { addAllCars } from "../../store/actions/car";
+import { addAllCars } from "../../store/car/carActions";
+import { getCars } from "../../store/car/carSelectors";
 
 const CarsPage = () => {
   const dispatch = useDispatch();
-  const cars = useSelector((state) => state.car.cars);
+  const cars = useSelector(getCars);
 
   useEffect(() => {
     // simulate ajax load

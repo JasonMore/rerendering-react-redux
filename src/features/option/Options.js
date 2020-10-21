@@ -1,11 +1,12 @@
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { addCar } from "../../store/actions/car";
-import { canToggleSelected } from "../../store/actions/options";
+import { addCar } from "../../store/car/carActions";
+import { canToggleSelected } from "../../store/option/optionsActions";
+import {getCanToggle} from "../../store/option/optionSelectors";
 
 // `React.memo` accomplishes the same thing `connect` was doing for us for perf
 const Options = React.memo(() => {
-  const canToggle = useSelector((state) => state.option.canToggle);
+  const canToggle = useSelector(getCanToggle);
   const dispatch = useDispatch();
   return (
     <div className="m-2 p-2">
