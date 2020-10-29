@@ -64,7 +64,7 @@ _Do_: [Fetch primitive values that will be used for rendering or logic, like str
 
 ## Understand how immutable objects impact performance
 
-[Redux requires your state to be immutable](https://redux.js.org/faq/immutable-data#why-is-immutability-required-by-redux), so [understanding how immutable works](https://redux.js.org/tutorials/essentials/part-1-overview-concepts#immutability) is paramount to fixing performance. Updating immutable data properly data directly informs React which components need to re-render. By connecting a single component to too many pieces of data, or connecting it too high up in the tree of data, any time a leaf data element changes, the component connected to that data either directly, or to its ancestor data element will cause all of that’s components children to re-render, even though nothing actually changed.
+[Redux requires your state to be immutable](https://redux.js.org/faq/immutable-data#why-is-immutability-required-by-redux), so [understanding how immutable works](https://redux.js.org/tutorials/essentials/part-1-overview-concepts#immutability) is paramount to fixing performance. Updating immutable data properly directly informs React which components need to re-render. By connecting a single component to too many pieces of data, or connecting it too high up in the tree of data, any time a leaf data element changes, the component connected to that data either directly, or to its ancestor data element will cause all of that’s components children to re-render, even though nothing actually changed.
 
 ## Step 1: Original Implementation
 
