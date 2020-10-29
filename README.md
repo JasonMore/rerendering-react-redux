@@ -1,22 +1,32 @@
 <!-- omit in toc -->
+
 # Example React Redux unnecessary re-rendering demo
 
 Over the years redux became one of the most popular options for managing global state in react. There have been many opinions on how to structure applications that use `react-redux`. This example project will show how the classic redux structure leads to performance issues and how to migrate to the correct structure recommended by the redux team.
 
 <!-- omit in toc -->
+
 ## Table of Contents
 
-- [Classic structure](#classic-structure)
-- [Best Practices](#best-practices)
-- [Understand how immutable objects impact performance](#understand-how-immutable-objects-impact-performance)
-- [Step 1: Original Implementation](#step-1-original-implementation)
-- [Step 2: Refactor File organization](#step-2-refactor-file-organization)
-- [Step 3: Connecting `<Options>` to state](#step-3-connecting-options-to-state)
-- [Step 4: Connecting `<Car>` to state](#step-4-connecting-car-to-state)
-- [Step 5: Remove `connect` HOC](#step-5-remove-connect-hoc)
-- [Step 6: Selectors](#step-6-selectors)
-- [Step 6.1: Refactor store files](#step-61-refactor-store-files)
-- [Summary](#summary)
+- [Example React Redux unnecessary re-rendering demo](#example-react-redux-unnecessary-re-rendering-demo)
+  - [Table of Contents](#table-of-contents)
+  - [Classic structure](#classic-structure)
+  - [Best Practices](#best-practices)
+    - [Getting State](#getting-state)
+    - [Naming](#naming)
+    - [What kind of state to get](#what-kind-of-state-to-get)
+  - [Understand how immutable objects impact performance](#understand-how-immutable-objects-impact-performance)
+  - [Step 1: Original Implementation](#step-1-original-implementation)
+    - [On load performance](#on-load-performance)
+    - [`Selected` button performance](#selected-button-performance)
+  - [Step 2: Refactor File organization](#step-2-refactor-file-organization)
+  - [Step 3: Connecting `<Options>` to state](#step-3-connecting-options-to-state)
+  - [Step 4: Connecting `<Car>` to state](#step-4-connecting-car-to-state)
+  - [Step 5: Remove `connect` HOC](#step-5-remove-connect-hoc)
+    - [Load and click performance](#load-and-click-performance)
+  - [Step 6: Selectors](#step-6-selectors)
+  - [Step 6.1: Refactor store files](#step-61-refactor-store-files)
+  - [Summary](#summary)
 
 ## Classic structure
 
@@ -29,6 +39,7 @@ This example project will show step by step the performance and complexity downs
 ## Best Practices
 
 <!-- omit in toc -->
+
 ### Getting State
 
 _Don’t_: Create a container component whose only job it is to pass state to another component without doing any rendering or logic. This leads to unnecessary coupling and complexity, especially at scale.
@@ -36,6 +47,7 @@ _Don’t_: Create a container component whose only job it is to pass state to an
 _Do_: [Connect every single component that needs a piece of state to render or accomplish an action](https://redux.js.org/style-guide/style-guide#connect-more-components-to-read-data-from-the-store). There is no measurable performance penalty doing this, contrary to popular belief. Quite often performance increases when components only get the small amount of state they need.
 
 <!-- omit in toc -->
+
 ### Naming
 
 _Don’t_: [Add the word `container` to a component connected to state](https://redux.js.org/style-guide/style-guide#structure-files-as-feature-folders-or-ducks). Example: `CarContainer`.
@@ -43,15 +55,16 @@ _Don’t_: [Add the word `container` to a component connected to state](https://
 _Do_: Name things for what they are or do, not if they are connected to state. Example `Car`.
 
 <!-- omit in toc -->
+
 ### What kind of state to get
 
-_Don’t_: Fetch objects and pass the object or their fields around to other components through component properties. 
+_Don’t_: Fetch objects and pass the object or their fields around to other components through component properties.
 
 _Do_: [Fetch primitive values that will be used for rendering or logic, like strings, bools, numbers, etc](https://redux.js.org/style-guide/style-guide#call-useselector-multiple-times-in-function-components). If rendering lists of things, fetch the hashmap or array to render the list, and pass the child objects ID to the next component so it knows what data to fetch.
 
 ## Understand how immutable objects impact performance
 
-[Redux requires your state to be immutable](https://redux.js.org/faq/immutable-data#why-is-immutability-required-by-redux), so [understanding how immutable works](https://redux.js.org/tutorials/essentials/part-1-overview-concepts#immutability) is paramount to fixing performance. Changing immutable data directly informs React which components need to re-render. By connecting a single component to too many pieces of data, or connecting it too high up in the tree of data, any time a leaf data element changes, the component connected to that data either directly, or to its ancestor data element will cause all of that’s components children to re-render, even though nothing actually changed.
+[Redux requires your state to be immutable](https://redux.js.org/faq/immutable-data#why-is-immutability-required-by-redux), so [understanding how immutable works](https://redux.js.org/tutorials/essentials/part-1-overview-concepts#immutability) is paramount to fixing performance. Updating immutable data properly data directly informs React which components need to re-render. By connecting a single component to too many pieces of data, or connecting it too high up in the tree of data, any time a leaf data element changes, the component connected to that data either directly, or to its ancestor data element will cause all of that’s components children to re-render, even though nothing actually changed.
 
 ## Step 1: Original Implementation
 
@@ -81,7 +94,7 @@ src
 
 ![example application](https://user-images.githubusercontent.com/383719/96742527-a46cb600-1388-11eb-9fd6-c213334815f6.png)
 
-The `<CarsPageContainer>` is the only component getting data out of state, and passing it to child components 
+The `<CarsPageContainer>` is the only component getting data out of state, and passing it to child components
 
 ```jsx harmony
 import React, { useEffect } from "react";
@@ -227,13 +240,14 @@ The `carReducer` has a single `cars` array with 36 `car` objects, and the `optio
 <img src="https://user-images.githubusercontent.com/383719/96742898-02999900-1389-11eb-8201-b19740d8a275.png" alt="state" width="400"/>
 
 <!-- omit in toc -->
+
 ### On load performance
 
 In this example, mock data simulating an API is dispatched to state 500ms after the `<CarsPageContainer>` is mounted. In this screenshot `CAR_ADD_ALL` was dispatched, and subsequently the `Options` component was rendered again needlessly.
 
 <img src="https://user-images.githubusercontent.com/383719/96743337-82bffe80-1389-11eb-8437-8245135d99da.png" alt="options renders extra" width="700"/>
 
-It took ~52ms for this action to update redux and render components, and 11ms for chrome to update the screen. 
+It took ~52ms for this action to update redux and render components, and 11ms for chrome to update the screen.
 
 <img src="https://user-images.githubusercontent.com/383719/96743416-99665580-1389-11eb-9cf3-e045b0ebdad7.png" alt="52ms render performance" width="300"/>
 
@@ -242,16 +256,16 @@ Of the 39ms of javascript, ~24ms was components rendering
 <img src="https://user-images.githubusercontent.com/383719/96743476-aa16cb80-1389-11eb-9bf6-37d0a2745130.png" alt="components rendering" width="700"/>
 
 <!-- omit in toc -->
+
 ### `Selected` button performance
 
 The other performance issue with this structure is every time you click any of the buttons on a car component, the entire app re-renders! The blue boxes around components show they are being re-rendered.
 
 ![2020-10-16 17 36 20](https://user-images.githubusercontent.com/383719/96743678-ddf1f100-1389-11eb-8868-937d2b5d3bad.gif)
 
-This is due to the `cars.map(car => …) ` line in the `CarsPageContainer`. Below is a screenshot showing all the components that rendered again but didn’t actually need to. You’ll see the `Options` component rendering again, along with every other car component. 
+This is due to the `cars.map(car => …) ` line in the `CarsPageContainer`. Below is a screenshot showing all the components that rendered again but didn’t actually need to. You’ll see the `Options` component rendering again, along with every other car component.
 
 <img src="https://user-images.githubusercontent.com/383719/96743841-05e15480-138a-11eb-86d3-51fad1d8b9b9.png" alt="cars re-rendering" width="700"/>
-
 
 It takes ~56ms to update this change, but only 2ms of that is chrome updating the screen.
 
@@ -263,7 +277,7 @@ It takes ~56ms to update this change, but only 2ms of that is chrome updating th
 
 [View branch source](https://github.com/JasonMore/rerendering-react-redux/tree/step2-refactor-folders/src)
 
-In this example, all the files are restructured to match [the Redux best practices](https://redux.js.org/tutorials/essentials/part-2-app-structure) suggested app structure before doing any refactoring.
+In this example, all the files will be restructured to match [the Redux best practices](https://redux.js.org/tutorials/essentials/part-2-app-structure) suggested app structure before doing any refactoring.
 
 ```text
 src
@@ -309,7 +323,7 @@ The React Profile tool also shows `<Options>` did not render.
 
 <img src="https://user-images.githubusercontent.com/383719/96759850-2fa47680-139e-11eb-9399-3a6794572902.png" alt="" width="700"/>
 
-The **Step 1** rendering time was ~52ms, and after adding another component to state, the new rendering time is also ~52ms.  Decoupling components and connecting to state provides **less complex code that doesn’t impact performance.**
+The **Step 1** rendering time was ~52ms, and after adding another component to state, the new rendering time is also ~52ms. Decoupling components and connecting to state provides **less complex code that doesn’t impact performance.**
 
 <img src="https://user-images.githubusercontent.com/383719/96759980-5f537e80-139e-11eb-924a-1a816bcf2252.png" alt="" width="300"/>
 
@@ -327,7 +341,6 @@ State also needs to be pushed down to each `<Car>` by connecting it to the redux
 
 ![image](https://user-images.githubusercontent.com/383719/96760671-96299480-139e-11eb-9675-1c6435041a9a.png)
 
-
 Now that each `<Car />` is connected to state, all of the props can be exchanged for a single id prop `<Car id={car.id} />
 
 ![image](https://user-images.githubusercontent.com/383719/96761050-ac375500-139e-11eb-9c6f-1f11342d34e3.png)
@@ -335,7 +348,6 @@ Now that each `<Car />` is connected to state, all of the props can be exchanged
 After this change, only the single car re-renders on selection.
 
 ![2020-10-16 18 37 43](https://user-images.githubusercontent.com/383719/96761380-bfe2bb80-139e-11eb-9a7f-ad03e296d149.gif)
-
 
 The fix can be verified by a lack of `why-did-you-render` warnings after the redux action was dispatched.
 
@@ -356,10 +368,9 @@ Since each component has access to state, its `mapStateToProps` function is call
 
 [View branch source](https://github.com/JasonMore/rerendering-react-redux/tree/step5-remove-connect/src)
 
-React and redux have come a long way in the last few years. One of the best improvements in React is the adding of hooks, [which lowers the amount of cognitive load when writing react components with redux](https://redux.js.org/style-guide/style-guide#use-the-react-redux-hooks-api). This adds clarity to any component, as the only props to reason about are the ones actually passed into the component, not a mix of what is coming from a parent component and redux. 
+React and redux have come a long way in the last few years. One of the best improvements in React is the adding of hooks, [which lowers the amount of cognitive load when writing react components with redux](https://redux.js.org/style-guide/style-guide#use-the-react-redux-hooks-api). This adds clarity to any component, as the only props to reason about are the ones actually passed into the component, not a mix of what is coming from a parent component and redux.
 
 In the case of `<Car>`, the complexity is actually two fold, as the `carId` prop is never even used in the render method. **By using react-redux hooks, the code becomes cleaner and more concise.**
-
 
 The most important thing to remember when converting a component from `connect` to redux hooks, is that `connect` provides built in memoization of props passed to the component, just like how `PureComponent` and `React.memo` work. So if a component has legitimate need for outside props to render something, such as an `id`, you should consider using `React.memo`. In this example, converting the component without `React.memo` causes all the `<Car>` components to start re-rendering needlessly again.
 
@@ -370,6 +381,7 @@ Diff: [https://github.com/JasonMore/rerendering-react-redux/compare/step4-fix-se
 ![image](https://user-images.githubusercontent.com/383719/96768727-c9baed80-13a3-11eb-9e0b-86c8e22fd1d7.png)
 
 <!-- omit in toc -->
+
 ### Load and click performance
 
 Switching from the `connect` HOC to functional components doesn’t change performance at all.
