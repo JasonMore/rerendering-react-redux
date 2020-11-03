@@ -30,7 +30,9 @@ Over the years redux became one of the most popular options for managing global 
 
 ## Classic structure
 
-[The classic redux documentation recommends](https://redux.js.org/basics/usage-with-react) structuring projects with the following pattern: a `containers` folder which holds all your components connected to global state, and a `components` folder which holds all your presentational components. Visiting this link today, the redux team marks this pattern as deprecated:
+The Classic redux structure is no longer officially documented and dead. I left the blurb below explaining what used to happen, but its impossible to visit anymore.
+
+~~[The classic redux documentation recommends](https://redux.js.org/basics/usage-with-react) structuring projects with the following pattern: a `containers` folder which holds all your components connected to global state, and a `components` folder which holds all your presentational components. Visiting this link today, the redux team marks this pattern as deprecated:~~
 
 <img src="https://user-images.githubusercontent.com/383719/96644430-abdf8100-12ee-11eb-9f3c-e2cd3c8441cc.png" alt="react deprecation" width="650"/>
 
