@@ -60,9 +60,9 @@ _Do_: Name things for what they are or do, not if they are connected to state. E
 
 ### What kind of state to get
 
-_Don’t_: Fetch objects and pass the object or their fields around to other components through component properties.
+_Don’t_: Fetch objects and pass the object or their fields around to other components through component properties. Usually referred to as “Prop Drilling”.
 
-_Do_: [Fetch primitive values that will be used for rendering or logic, like strings, bools, numbers, etc](https://redux.js.org/style-guide/style-guide#call-useselector-multiple-times-in-function-components). If rendering lists of things, fetch the hashmap or array to render the list, and pass the child objects ID to the next component so it knows what data to fetch.
+_Do_: [Fetch primitive values that will be used for rendering or logic, like strings, bools, numbers, etc](https://redux.js.org/style-guide/style-guide#call-useselector-multiple-times-in-function-components). If rendering lists of things, create a hashmap of the array, then render the list but only pass the child objects an ID, which will allow a selector access to the sub property directly.
 
 ## Understand how immutable objects impact performance
 
