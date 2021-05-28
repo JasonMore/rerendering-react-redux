@@ -372,7 +372,7 @@ Since each component has access to state, its `mapStateToProps` function is call
 
 React and redux have come a long way in the last few years. One of the best improvements in React is the adding of hooks, [which lowers the amount of cognitive load when writing react components with redux](https://redux.js.org/style-guide/style-guide#use-the-react-redux-hooks-api). This adds clarity to any component, as the only props to reason about are the ones actually passed into the component, not a mix of what is coming from a parent component and redux.
 
-In the case of `<Car>`, the complexity is actually two fold, as the `carId` prop is never even used in the render method. **By using react-redux hooks, the code becomes cleaner and more concise.**
+In the case of `<Car>`, the complexity is actually two fold, as the `carId` prop is never even used in the render method. **By using react-redux hooks, the code becomes cleaner and more concise.** This adds clarity to the component, as the props are actually what was passed into the component, not a mix of what is coming from a parent prop and redux. 
 
 The most important thing to remember when converting a component from `connect` to redux hooks, is that `connect` provides built in memoization of props passed to the component, just like how `PureComponent` and `React.memo` work. So if a component has legitimate need for outside props to render something, such as an `id`, you should consider using `React.memo`. In this example, converting the component without `React.memo` causes all the `<Car>` components to start re-rendering needlessly again.
 
