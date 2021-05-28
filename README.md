@@ -343,7 +343,7 @@ State also needs to be pushed down to each `<Car>` by connecting it to the redux
 
 ![image](https://user-images.githubusercontent.com/383719/96760671-96299480-139e-11eb-9675-1c6435041a9a.png)
 
-Now that each `<Car />` is connected to state, all of the props can be exchanged for a single id prop `<Car id={car.id} />
+Now that each `<Car />` is connected to state, all of the props can be exchanged for a single id prop `<Car id={car.id} />`
 
 ![image](https://user-images.githubusercontent.com/383719/96761050-ac375500-139e-11eb-9c6f-1f11342d34e3.png)
 
