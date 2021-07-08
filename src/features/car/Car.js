@@ -1,18 +1,15 @@
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { selectCar } from "../../store/car/carActions";
+import { carClicked } from "../../store/car/carActions";
 import { getCarById } from "../../store/car/carSelectors";
-import { getCanToggle } from "../../store/option/optionSelectors";
 
 // `React.memo` accomplishes the same thing `connect` was doing for us for re-rendering perf
 const Car = React.memo(({ carId }) => {
   const dispatch = useDispatch();
   const car = useSelector(getCarById(carId));
-  const canToggle = useSelector(getCanToggle);
 
   const onCarClicked = () => {
-    if (!canToggle) return;
-    dispatch(selectCar(car.id, !car.selected));
+    dispatch(carClicked(carId));
   };
 
   return (
