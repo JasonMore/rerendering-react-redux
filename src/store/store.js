@@ -1,6 +1,6 @@
 import { configureStore, getDefaultMiddleware } from "@reduxjs/toolkit";
-import car from "./car/carReducer";
-import option from "./option/optionReducer";
+import car from "./car/carSlice";
+import option from "./option/optionSlice";
 import { isDev } from "../isDev";
 
 const middleware = getDefaultMiddleware();
