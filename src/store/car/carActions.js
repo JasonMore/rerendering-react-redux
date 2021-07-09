@@ -1,24 +1,7 @@
-import { carData, imageMap } from "../../_fixtures/mockCarData";
+import { carData } from "../../_fixtures/mockCarData";
 import { getCarById, getCars } from "./carSelectors";
 import { getCanToggle } from "../option/optionSelectors";
-
-export const addAllCars = (cars) => ({ type: "CAR_ADD_ALL", cars });
-
-export const selectCar = (id, selected) => ({
-  type: "CAR_SELECTED",
-  id,
-  selected,
-});
-
-export const addCar = (name) => ({
-  type: "CAR_ADD",
-  car: {
-    name,
-    id: +new Date(),
-    selected: false,
-    image: imageMap[name],
-  },
-});
+import { addAllCars, selectCar } from "./carSlice";
 
 export const loadCars = () => async (dispatch, getState) => {
   const state = getState();
@@ -41,5 +24,6 @@ export const carClicked = (carId) => (dispatch, getState) => {
   if (!canToggle) return;
 
   const car = getCarById(carId)(state);
-  dispatch(selectCar(car.id, !car.selected));
+  const { id, selected } = car;
+  dispatch(selectCar({ id, selected: !selected }));
 };
