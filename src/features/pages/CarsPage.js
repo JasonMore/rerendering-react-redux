@@ -1,17 +1,10 @@
-import React, { useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import React from "react";
 import Car from "../car/Car";
 import Options from "../option/Options";
-import { loadCars } from "../../store/car/carActions";
-import { getCars } from "../../store/car/carSelectors";
+import { useGetCars } from "../../api/carsApi";
 
 const CarsPage = () => {
-  const dispatch = useDispatch();
-  const cars = useSelector(getCars);
-
-  useEffect(() => {
-    dispatch(loadCars());
-  }, [dispatch]);
+  const { data: cars } = useGetCars();
 
   return (
     <div>
@@ -21,7 +14,7 @@ const CarsPage = () => {
         <h2>Cars</h2>
 
         <div className="container-fluid row">
-          {Object.values(cars).map((car) => (
+          {cars?.map((car) => (
             <Car key={car.id} carId={car.id} />
           ))}
         </div>

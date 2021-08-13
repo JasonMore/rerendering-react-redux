@@ -1,6 +1,4 @@
 import { createSlice } from "@reduxjs/toolkit";
-import keyBy from "../keyBy";
-import { imageMap } from "../../_fixtures/mockCarData";
 
 const initialState = {
   cars: {},
@@ -10,20 +8,10 @@ const carSlice = createSlice({
   name: "car",
   initialState,
   reducers: {
-    addAllCars(state, { payload: cars }) {
-      state.cars = keyBy(cars, "id");
-    },
-    addCar(state, { payload: name }) {
-      const car = {
-        name,
-        id: +new Date(),
-        selected: false,
-        image: imageMap[name],
-      };
-      state.cars[car.id] = car;
-    },
     selectCar(state, { payload }) {
       const { id, selected } = payload;
+      // add a new car to the map if it does not exist
+      state.cars[id] = state.cars[id] ?? {}
       state.cars[id].selected = selected;
     },
   },

@@ -4,6 +4,9 @@ import App from "./App";
 import store from "./store/store";
 import { Provider } from "react-redux";
 import { isDev } from "./isDev";
+import { QueryClient, QueryClientProvider } from "react-query";
+
+const queryClient = new QueryClient();
 
 if (isDev) {
   const whyDidYouRender = require("@welldone-software/why-did-you-render");
@@ -19,9 +22,11 @@ if (isDev) {
 
 ReactDOM.render(
   <React.StrictMode>
-    <Provider store={store}>
-      <App />
-    </Provider>
+    <QueryClientProvider client={queryClient}>
+      <Provider store={store}>
+        <App />
+      </Provider>
+    </QueryClientProvider>
   </React.StrictMode>,
   document.getElementById("root")
 );
